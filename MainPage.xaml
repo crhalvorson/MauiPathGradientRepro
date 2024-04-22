@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PathGradientRepro.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <ScrollView>
+        <VerticalStackLayout Margin="30,0" Spacing="35">
+            <VerticalStackLayout.Resources>
+                <ResourceDictionary>
+                    <LinearGradientBrush x:Key="LinearGradient">
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStop Offset="0" Color="Red" />
+                            <GradientStop Offset="0.5" Color="Blue" />
+                            <GradientStop Offset="0.9" Color="Purple" />
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+
+                    <RadialGradientBrush x:Key="RadialGradient">
+                        <RadialGradientBrush.GradientStops>
+                            <GradientStop Offset="0" Color="Red" />
+                            <GradientStop Offset="0.5" Color="Blue" />
+                            <GradientStop Offset="0.9" Color="Purple" />
+                        </RadialGradientBrush.GradientStops>
+                    </RadialGradientBrush>
+                </ResourceDictionary>
+            </VerticalStackLayout.Resources>
+
+            <VerticalStackLayout Margin="30,0" Spacing="35">
+                <Label Text="Non-working (Stroke does not apply gradient)" />
+                <Path
+                    x:Name="ArcPath"
+                    Fill="{StaticResource LinearGradient}"
+                    Stroke="{StaticResource LinearGradient}"
+                    StrokeThickness="20">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigureCollection>
+                                <PathFigure StartPoint="0,0">
+                                    <ArcSegment
+                                        IsLargeArc="False"
+                                        Point="120,140"
+                                        Size="100,100"
+                                        SweepDirection="Clockwise" />
+                                </PathFigure>
+                            </PathFigureCollection>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+                <Ellipse
+                    Fill="{StaticResource LinearGradient}"
+                    HeightRequest="50"
+                    Stroke="{StaticResource LinearGradient}"
+                    StrokeThickness="10"
+                    WidthRequest="50" />
+            </VerticalStackLayout>
+            <VerticalStackLayout Margin="30,0" Spacing="35">
+                <Label Text="Working (Border does apply gradient)" />
+                <Border
+                    HeightRequest="100"
+                    Stroke="{StaticResource LinearGradient}"
+                    StrokeShape="RoundRectangle 15"
+                    StrokeThickness="20"
+                    WidthRequest="100" />
+
+                <Border
+                    HeightRequest="400"
+                    Stroke="{StaticResource LinearGradient}"
+                    StrokeThickness="20"
+                    WidthRequest="400">
+                    <Border.StrokeShape>
+                        <Path Fill="{StaticResource LinearGradient}">
+                            <Path.Data>
+                                <PathGeometry>
+                                    <PathFigure StartPoint="0,0">
+                                        <ArcSegment
+                                            IsLargeArc="False"
+                                            Point="120,140"
+                                            Size="100,100"
+                                            SweepDirection="Clockwise" />
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Path.Data>
+                        </Path>
+                    </Border.StrokeShape>
+                </Border>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
